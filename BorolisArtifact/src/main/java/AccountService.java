@@ -21,10 +21,17 @@ public class AccountService {
         myDB.execUpdate(myDB.makeSQLInsertNewAcc(account));
     }
 
+
     public Account findAccountByLogin(String login)
     {
-        return myDB.getAccount(myDB.makeSQLqueryGetAccByLogin(login));
+        lastUsedAccount = myDB.getAccount(myDB.makeSQLqueryGetAccByLogin(login));
+        return lastUsedAccount;
     }
 
+    public Account findAccountBySession(String session_id)
+    {
+        lastUsedAccount = myDB.getAccount(myDB.makeSQLqueryGetAccBySession(session_id));
+        return lastUsedAccount;
+    }
 
 }

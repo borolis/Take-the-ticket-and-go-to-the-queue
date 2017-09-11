@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class SignInServlet extends HttpServlet {
+public class DashboardServlet extends HttpServlet {
 
 
     AccountService accountService;
 
-    public SignInServlet(AccountService _accountService) {
+    public DashboardServlet(AccountService _accountService) {
         this.accountService = _accountService;
     }
 
@@ -19,17 +19,16 @@ public class SignInServlet extends HttpServlet {
 
         PageGenerator pageGenerator = PageGenerator.instance();
         if (authentificate(request.getSession().getId())) {
-            response.getWriter().println("You are already signed in!");
-            response.getWriter().println(pageGenerator.getRedirectPage("dashboard"));
+            response.getWriter().println("This is your dashboard");
         } else {
-            response.getWriter().println(pageGenerator.getPage("signin.html", new HashMap<String, Object>()));
+            response.getWriter().println(pageGenerator.getRedirectPage("signin"));
         }
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
 
     }
 
-    private Account authorize(String login, String pass, String session_id) {
+    private Account authorizate(String login, String pass, String session_id) {
         boolean isRegistered = false;
 
         Account userAccount = accountService.findAccountByLogin(login);
@@ -61,33 +60,6 @@ public class SignInServlet extends HttpServlet {
 
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String login = request.getParameter("login");
-        String pass = request.getParameter("password");
-        String session_id = request.getSession().getId();
-
-        if (login == null || login.isEmpty() || pass == null || pass.isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.getWriter().println("Incorrect login/pass");
-            System.out.println("Incorrect login/pass");
-            return;
-        }
-
-        Account userAccount = authorize(login, pass, session_id);
-
-        if (userAccount == null) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().println("Wrong login/pass");
-            System.out.println("Wrong login/pass");
-            return;
-        }
-
-        PageGenerator pageGenerator = PageGenerator.instance();
-
-        response.getWriter().println(pageGenerator.getRedirectPage("dashboard"));
-
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType("text/html;charset=utf-8");
 
     }
 

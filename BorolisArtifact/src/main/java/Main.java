@@ -18,6 +18,7 @@ public class Main {
         DBHelper myDB = new DBHelper();
         AccountService accountService = new AccountService(myDB);
 
+        DashboardServlet dashboardServlet = new DashboardServlet(accountService);
         SignUpServlet signUpServlet = new SignUpServlet(accountService);
         SignInServlet signInServlet = new SignInServlet(accountService);
 
@@ -45,6 +46,7 @@ public class Main {
 
         servletHandler.addServlet(new ServletHolder(signUpServlet), "/signup");
         servletHandler.addServlet(new ServletHolder(signInServlet), "/signin");
+        servletHandler.addServlet(new ServletHolder(dashboardServlet), "/dashboard");
         System.out.println("Server started");
         server.start();
         server.join();

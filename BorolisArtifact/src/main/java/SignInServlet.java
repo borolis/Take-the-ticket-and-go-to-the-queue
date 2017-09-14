@@ -2,8 +2,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.security.MessageDigest;
 import java.util.HashMap;
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class SignInServlet extends HttpServlet {
 
@@ -40,7 +44,7 @@ public class SignInServlet extends HttpServlet {
         if (isRegistered && userAccount.getPassword().equals(pass)) {
             //welcome
             userAccount.setSession_id(session_id);
-            accountService.myDB.execUpdate(accountService.myDB.makeSQLupdateUpdateSession(userAccount));
+            accountService.myDB.execUpdate(accountService.myDB.makeSQLInsertAuth(userAccount.getLogin(), userAccount.getSession_id()));
             return userAccount;
         } else {
             return null;
@@ -49,23 +53,23 @@ public class SignInServlet extends HttpServlet {
 
     }
 
-    boolean authentificate(String session_id) {
-        boolean isAuthorizated = false;
+    private boolean authentificate(String session_id) {
+        boolean isAuthorized = false;
 
         Account userAccount = accountService.findAccountBySession(session_id);
         if (userAccount != null) {
-            isAuthorizated = true;
+            isAuthorized = true;
         }
-        return isAuthorizated;
+        return isAuthorized;
     }
-
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String login = request.getParameter("login");
-        String pass = request.getParameter("password");
+        String login = request.getParameter("login").toLowerCase();
+        String pass = request.getParameter("password").toLowerCase();
         String session_id = request.getSession().getId();
-
+        pass = DigestUtils.md5Hex(pass);
+        System.out.println("pass|" + pass + "|assp");
         if (login == null || login.isEmpty() || pass == null || pass.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.getWriter().println("Incorrect login/pass");
@@ -75,14 +79,15 @@ public class SignInServlet extends HttpServlet {
 
         Account userAccount = authorize(login, pass, session_id);
 
+        PageGenerator pageGenerator = PageGenerator.instance();
+
         if (userAccount == null) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().println("Wrong login/pass");
+            response.setStatus(HttpServletResponse.SC_OK);
+            //response.getWriter().println("Wrong login/pass");
+            response.getWriter().println(pageGenerator.getRedirectPage("signin"));
             System.out.println("Wrong login/pass");
             return;
         }
-
-        PageGenerator pageGenerator = PageGenerator.instance();
 
         response.getWriter().println(pageGenerator.getRedirectPage("dashboard"));
 

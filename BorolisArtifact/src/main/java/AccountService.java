@@ -30,7 +30,7 @@ public class AccountService {
 
     public Account findAccountBySession(String session_id)
     {
-        lastUsedAccount = myDB.getAccount(myDB.makeSQLqueryGetAccBySession(session_id));
+        lastUsedAccount = myDB.getAccBySession(session_id);
         return lastUsedAccount;
     }
 

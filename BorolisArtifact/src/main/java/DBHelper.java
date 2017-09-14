@@ -54,6 +54,7 @@ public class DBHelper {
         }
     }
 
+
     public Account getAccount(String query) {
         DBConnect();
         try {
@@ -63,7 +64,7 @@ public class DBHelper {
             rs = stmt.executeQuery(query);
             Account result = null;
             while (rs.next()) {
-                        result = new Account(rs.getString("_id"),
+                result = new Account(rs.getString("_id"),
                         rs.getString("login"),
                         rs.getString("password"),
                         rs.getString("email"),
@@ -79,7 +80,6 @@ public class DBHelper {
         }
         return null;
     }
-
 
 
     public ResultSet execQuery(String query) {
@@ -132,6 +132,38 @@ public class DBHelper {
     }
 
 
+
+
+
+
+    public String makeSQLInsertAuth(String login, String session_id) {
+
+        //myDB.execUpdate("INSERT INTO borolis (login, password, email, session_id) values('TestUser', '123456', 'boroliska@gmail.com', 'id001')");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("INSERT INTO ");
+        stringBuilder.append("sessionidtologin ");
+        stringBuilder.append("(login, session_id)");
+        stringBuilder.append("values");
+        stringBuilder.append("(");
+        stringBuilder.append("'" + login + "',");
+        stringBuilder.append("'" + session_id +"'");
+        stringBuilder.append(");");
+        return stringBuilder.toString();
+    }
+
+    public String makeSQLDeleteAuth(String session_id) {
+        System.out.println(session_id);
+        //myDB.execUpdate("DELETE FROM `borolis`.`sessionidtologin` WHERE `session_id`='sessionId';");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("DELETE FROM `borolis`.`sessionidtologin` WHERE `session_id`='");
+        stringBuilder.append(session_id);
+        stringBuilder.append("';");
+        return stringBuilder.toString();
+    }
+
+
     public String makeSQLqueryGetAccByLogin(String login) {
         //myDB.execUpdate("SELECT * FROM borolis.borolis WHERE login='TestUser'");
 
@@ -144,11 +176,40 @@ public class DBHelper {
     }
 
 
-    public String makeSQLqueryGetAccBySession(String session_id) {
+
+    public Account getAccBySession(String session_id) {
+        DBConnect();
+        try {
+
+            stmt = con.createStatement();
+
+            rs = stmt.executeQuery(makeSQLqueryGetLoginBySession(session_id));
+
+            String login = null;
+            while (rs.next()) {
+                login = rs.getString("login");
+            }
+            if (login == null) {
+                return null;
+            }
+            Account result = getAccount(makeSQLqueryGetAccByLogin(login));
+            return result;
+
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.toString());
+            sqlEx.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return null;
+    }
+
+
+    public String makeSQLqueryGetLoginBySession(String session_id) {
         //myDB.execUpdate("SELECT * FROM borolis.borolis WHERE login='TestUser'");
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("SELECT * FROM borolis.borolis WHERE session_id='");
+        stringBuilder.append("SELECT login FROM borolis.sessionidtologin WHERE session_id='");
         stringBuilder.append(session_id);
         stringBuilder.append("';");
 
@@ -159,15 +220,17 @@ public class DBHelper {
         //myDB.execUpdate("SELECT * FROM borolis.borolis WHERE login='TestUser'");
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("UPDATE `borolis`.`borolis` SET `session_id`='");
+        stringBuilder.append("UPDATE `borolis`.`sessionidtologin` SET `session_id`='");
         stringBuilder.append(acc.getSession_id());
         stringBuilder.append("'");
-        stringBuilder.append(" WHERE `_id`='");
-        stringBuilder.append(acc.getId());
+        stringBuilder.append(" WHERE `login`='");
+        stringBuilder.append(acc.getLogin());
         stringBuilder.append("';");
 
         return stringBuilder.toString();
     }
+
+
     //UPDATE `borolis`.`borolis` SET `session_id`='id9399' WHERE `_id`='2';
 
 

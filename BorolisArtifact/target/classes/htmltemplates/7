@@ -1,0 +1,64 @@
+Welcome to Namecheap Live Support
+0:16:16
+× ClosePrintEmailSound: On
+Your Question: hello, 2 hour ago I asked "how fast editing A or NS records of domain applies, and got answer "around 30 minutes". But after 2 hours nothing changes...(
+Please wait, an operator will be with you shortly.
+You are now chatting with Nithya Sundar (Domain CS) - Domains Support
+16:15Nithya Sundar:
+Hello Boris, you've contacted Live Support! Please give me a minute to look through the question you asked.
+16:16Nithya Sundar:
+Please specify the domain name.
+16:16Boris:
+borolis.party
+16:17Boris:
+I've changed A record to 62.109.6.30
+16:17Nithya Sundar:
+Thank you for the domain name. Please allow me some time to check the domain.
+16:20Nithya Sundar:
+The A record has been misconfigured.
+16:21Nithya Sundar:
+In order to verify your account, please provide me with: 1) your Namecheap username and 2) your Support PIN. You can find it here: https://ap.www.namecheap.com/Profile/Security
+16:21Boris:
+pin 3140
+16:21Boris:
+username: borolis
+16:22Boris:
+@The A record has been misconfigured.@ Is it my trouble? or not?
+16:22Nithya Sundar:
+Thank you for the information.
+16:22Nithya Sundar:
+The host name of the A record should be just @
+16:23Nithya Sundar:
+@ represents the bare domain in our interface
+16:25Nithya Sundar:
+Also, it is required to add one more A record for host www
+16:25Nithya Sundar:
+Type: A Record | Host: www | Value: 62.109.6.30 | TTL: Automatic
+16:26Boris:
+I changed, can you check? is all right now?
+16:26Nithya Sundar:
+Sure, please allow me a few minutes.
+16:29Nithya Sundar:
+Thank you for your patience.
+16:29Nithya Sundar:
+The records look perfect.
+16:29Boris:
+wooooow)
+16:29Boris:
+thank you very much
+16:29Boris:
+best tech support i've ever seen
+16:29Boris:
+:)
+16:30Nithya Sundar:
+You are most welcome.
+16:30Nithya Sundar:
+borolis.party. 1800 NS dns2.registrar-servers.com. borolis.party. 1800 NS dns1.registrar-servers.com. borolis.party. 1799 A 62.109.6.30
+16:30Nithya Sundar:
+The A records has been updated.
+16:30Nithya Sundar:
+If there is anything else I can do for you, please let me know.
+16:30Boris:
+tnanks)
+
+SendPrivacy Policy   -   Powered by Kayako Help Desk Software

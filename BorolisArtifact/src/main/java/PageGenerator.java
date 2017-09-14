@@ -10,8 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PageGenerator {
-    private static final String HTML_DIR = "templates";
+//IDEA      private static final String HTML_DIR = "src/main/resources/htmltemplates";
+//JAR       private static final String HTML_DIR = "src/main/resources/htmltemplates";
 
+    private static final String HTML_DIR = "htmltemplates";
     private static PageGenerator pageGenerator;
     private final Configuration cfg;
 
@@ -24,6 +26,7 @@ public class PageGenerator {
     public String getPage(String filename, Map<String, Object> data) {
         Writer stream = new StringWriter();
         try {
+
             Template template = cfg.getTemplate(HTML_DIR + File.separator + filename);
             template.process(data, stream);
         } catch (IOException | TemplateException e) {
@@ -33,8 +36,38 @@ public class PageGenerator {
         return stream.toString();
     }
 
-    public String getRedirectPage(String urlRedirect)
-    {
+
+    public String getProfilePage(Worker worker) {
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(worker.getMap());
+
+        Writer stream = new StringWriter();
+        try {
+            Template template = cfg.getTemplate(HTML_DIR + File.separator + "pages-profile.html");
+            template.process(data, stream);
+        } catch (IOException | TemplateException e) {
+            e.printStackTrace();
+        }
+
+        return stream.toString();
+    }
+
+    public String getDashboardPage(Worker worker) {
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(worker.getMap());
+
+        Writer stream = new StringWriter();
+        try {
+            Template template = cfg.getTemplate(HTML_DIR + File.separator + "pages-dashboard.html");
+            template.process(data, stream);
+        } catch (IOException | TemplateException e) {
+            e.printStackTrace();
+        }
+
+        return stream.toString();
+    }
+
+    public String getRedirectPage(String urlRedirect) {
         String filename = "redirect.html";
         Map<String, Object> data = new HashMap<>();
         data.put("URL", urlRedirect);

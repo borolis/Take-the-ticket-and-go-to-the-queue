@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class DashboardServlet extends HttpServlet {
 
@@ -16,10 +17,23 @@ public class DashboardServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
         PageGenerator pageGenerator = PageGenerator.instance();
         if (authentificate(request.getSession().getId())) {
-            response.getWriter().println("This is your dashboard");
+
+            Worker borolis = new Worker(
+                    "Boris Liskov",
+                    "boroliska@gmail.com",
+                    "1234",
+                    "Teamlead",
+                    "+79179185766",
+                    "Kazakhstan",
+                    "https://pp.userapi.com/c630022/v630022871/3f284/eTKDa0veHvI.jpg",
+                    "50",
+                    "98"
+            );
+
+            response.getWriter().println(pageGenerator.getDashboardPage(borolis));
+
         } else {
             response.getWriter().println(pageGenerator.getRedirectPage("signin"));
         }
@@ -39,7 +53,7 @@ public class DashboardServlet extends HttpServlet {
         if (isRegistered && userAccount.getPassword().equals(pass)) {
             //welcome
             userAccount.setSession_id(session_id);
-            accountService.myDB.execUpdate(accountService.myDB.makeSQLupdateUpdateSession(userAccount));
+            accountService.myDB.execUpdate(accountService.myDB.makeSQLInsertAuth(userAccount.getLogin(), userAccount.getSession_id()));
             return userAccount;
         } else {
             return null;

@@ -16,22 +16,14 @@ public class ProfileServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        String session_id = request.getSession().getId();
         PageGenerator pageGenerator = PageGenerator.instance();
-        if (authentificate(request.getSession().getId())) {
-            // response.getWriter().println("This is your dashboard");
-            Worker borolis = new Worker(
-                    "Boris Liskov",
-                    "boroliska@gmail.com",
-                    "1234",
-                    "Teamlead",
-                    "+79179185766",
-                    "Kazakhstan",
-                    "https://pp.userapi.com/c630022/v630022871/3f284/eTKDa0veHvI.jpg",
-                    "50",
-                    "98"
-            );
-            response.getWriter().println(pageGenerator.getProfilePage(borolis));
+
+        if (authentificate(session_id)) {
+
+            Worker currentWorker = accountService.myDB.getWorker(accountService.myDB.makeSQLqueryGetWorkerByLogin(accountService.myDB.getAccBySession(session_id).getLogin()));
+
+            response.getWriter().println(pageGenerator.getProfilePage(currentWorker));
 
         } else {
             response.getWriter().println(pageGenerator.getRedirectPage("signin"));

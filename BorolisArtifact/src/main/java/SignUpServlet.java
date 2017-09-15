@@ -19,7 +19,7 @@ public class SignUpServlet extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println("");
+        response.getWriter().println("You can do this by POST: login, password, email.");
 
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -42,8 +42,10 @@ public class SignUpServlet extends HttpServlet {
         }
         if (!isRegistered) {
             accountService.createNewAccount(new Account(null, login, password, email, null));
+
+            //TODO create new Worker and add it to DB
         }
-        response.getWriter().println("blyad, zaregan))))");
+        response.getWriter().println("Signed UP!))))");
         response.setContentType("text/html;charset=utf-8");
         response.setStatus(HttpServletResponse.SC_OK);
     }

@@ -64,16 +64,17 @@ public class SignInServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        Logger L = new Logger();
         String login = request.getParameter("login").toLowerCase();
         String pass = request.getParameter("password").toLowerCase();
         String session_id = request.getSession().getId();
         pass = DigestUtils.md5Hex(pass);
-        System.out.println("pass|" + pass + "|assp");
+        L.log("Login: login["  +login+ "] passhash[" + pass + "]");
+
         if (login == null || login.isEmpty() || pass == null || pass.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.getWriter().println("Incorrect login/pass");
-            System.out.println("Incorrect login/pass");
+            L.log("Incorrect login/pass");
             return;
         }
 
@@ -83,9 +84,8 @@ public class SignInServlet extends HttpServlet {
 
         if (userAccount == null) {
             response.setStatus(HttpServletResponse.SC_OK);
-            //response.getWriter().println("Wrong login/pass");
             response.getWriter().println(pageGenerator.getRedirectPage("signin"));
-            System.out.println("Wrong login/pass");
+            L.log("Wrong login/pass");
             return;
         }
 

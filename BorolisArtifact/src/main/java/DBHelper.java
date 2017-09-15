@@ -81,6 +81,40 @@ public class DBHelper {
         return null;
     }
 
+    public Worker getWorker(String query) {
+        DBConnect();
+        try {
+
+            stmt = con.createStatement();
+
+            rs = stmt.executeQuery(query);
+            Worker result = null;
+            while (rs.next()) {
+                result = new Worker(
+                        rs.getString("login"),
+                        rs.getString("fullName"),
+                        rs.getString("email"),
+                        rs.getString("password"),
+                        rs.getString("position"),
+                        rs.getString("phoneNumber"),
+                        rs.getString("country"),
+                        rs.getString("photo"),
+                        rs.getString("workersCategory"),
+                        rs.getString("workersLoad"),
+                        rs.getString("workersFeedback")
+                );
+            }
+            return result;
+
+        } catch (SQLException sqlEx) {
+            System.out.println(sqlEx.toString());
+            sqlEx.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return null;
+    }
+
 
     public ResultSet execQuery(String query) {
         DBConnect();
@@ -132,10 +166,6 @@ public class DBHelper {
     }
 
 
-
-
-
-
     public String makeSQLInsertAuth(String login, String session_id) {
 
         //myDB.execUpdate("INSERT INTO borolis (login, password, email, session_id) values('TestUser', '123456', 'boroliska@gmail.com', 'id001')");
@@ -147,7 +177,7 @@ public class DBHelper {
         stringBuilder.append("values");
         stringBuilder.append("(");
         stringBuilder.append("'" + login + "',");
-        stringBuilder.append("'" + session_id +"'");
+        stringBuilder.append("'" + session_id + "'");
         stringBuilder.append(");");
         return stringBuilder.toString();
     }
@@ -175,6 +205,17 @@ public class DBHelper {
         return stringBuilder.toString();
     }
 
+
+    public String makeSQLqueryGetWorkerByLogin(String login) {
+        //myDB.execUpdate("SELECT * FROM borolis.borolis WHERE login='TestUser'");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT * FROM borolis.workers WHERE login='");
+        stringBuilder.append(login);
+        stringBuilder.append("';");
+
+        return stringBuilder.toString();
+    }
 
 
     public Account getAccBySession(String session_id) {
@@ -227,6 +268,47 @@ public class DBHelper {
         stringBuilder.append(acc.getLogin());
         stringBuilder.append("';");
 
+        return stringBuilder.toString();
+    }
+
+
+    public String makeSQLupdateUpdateWorker(Worker worker) {
+
+        //UPDATE `borolis`.`workers` SET `position` = 'Teamlead2', `fullName` = 'boriska' WHERE `workers`.`login` = 'borolis';
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("UPDATE `borolis`.`workers` SET ");
+
+//UPDATE `workers` SET `_id`=[value-1],`login`=[value-2],`fullname`=[value-3],`email`=[value-4],
+// `password`=[value-5],`position`=[value-6],`phonenumber`=[value-7],`country`=[value-8],`photo`=[value-9],
+// `workersCategory`=[value-10],`workersload`=[value-11],`workersfeedback`=[value-12] WHERE 1
+
+        stringBuilder.append("`login`=" + "'" + worker.getLogin() + "', ");
+
+        stringBuilder.append("`fullName`=" + "'" + worker.getFullName() + "', ");
+
+        stringBuilder.append("`email`=" + "'" + worker.getEmail() + "', ");
+
+        stringBuilder.append("`password`=" + "'" + worker.getPassword() + "', ");
+
+        stringBuilder.append("`position`=" + "'" + worker.getPosition() + "', ");
+
+        stringBuilder.append("`phoneNumber`=" + "'" + worker.getPhoneNumber() + "', ");
+
+        stringBuilder.append("`country`=" + "'" + worker.getCountry() + "', ");
+
+        stringBuilder.append("`photo`=" + "'" + worker.getPhoto() + "', ");
+
+        stringBuilder.append("`workersCategory`=" + "'" + worker.getWorkersCategory() + "', ");
+
+        stringBuilder.append("`workersLoad`=" + "'" + worker.getWorkersLoad() + "', ");
+
+        stringBuilder.append("`workersFeedback`=" + "'" + worker.getWorkersFeedback() + "' ");
+
+        stringBuilder.append(" WHERE `workers`.`login`='");
+        stringBuilder.append(worker.getLogin());
+        stringBuilder.append("';");
+        System.out.println("|" + stringBuilder.toString() + "|");
         return stringBuilder.toString();
     }
 

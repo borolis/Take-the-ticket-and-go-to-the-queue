@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="windows-1251">
+ <meta http-equiv="refresh" content="5;URL=getticket" />
+  <title> Get ticket</title>
+	<style>
+   body {
+    background: #71BFB9 url(fon.png) no-repeat;
+	text-align: center;
+	font-family: trebuchet ms ;
+	    }
+   header {
+      height: 130px; 
+	  width: 100%;
+	  background :#71b395 url(3.png) no-repeat;
+	  position: relative;
+      z-index: 50;
+      box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.5);
+	    }
+	a.button3 {
+		  display: inline-block;
+		  color: #defbda;
+		  text-decoration: none;
+		  text-align:center;
+		  padding: .1em 2em;
+		  outline: none;
+		  border-width: 2px 0;
+		  border-style: solid none;
+		  border-color: #7cae89 ;
+		  border-radius: 4px;
+		  background: #84d299;
+		  transition: 0.2s;
+		  width:75px;
+	      font:50px; 
+          		 } 
+		p.contact {
+		margin: 5px;
+	           }
+	    .form-2 {
+			width: 670px;
+			margin: 60px auto 30px;
+			padding: 15px;
+			position: relative;
+		    background: #fffaf6;
+			border-radius: 4px;
+			box-shadow:
+				0 2px 2px rgba(0,0,0,0.2),       
+				0 1px 5px rgba(0,0,0,0.2),       
+				0 0 0 12px rgba(255,255,255,0.4);
+		     input[type=submit],
+			}
+		h1 { 
+		 font-size: 350%;
+         color: #078872;
+		 text-shadow: black 0 0 2px;
+			}
+		h2 {
+		font-size: 250%;
+		letter-spacing: 0.2em;
+		color: #3D3834;
+		   }
+   </style>
+
+<body>
+	<header>
+	    <img img="3.png">
+	   <div align="right" valign="top">
+		<p class="contact">Call us: </br>
+		    +7 (xxx) xxx xxx-xx-xx <p> 
+		<a href="signin" class="button3">Service entrance</a>
+	   </div>
+	 </header>
+	<form class="form-2">
+	<h1> Your id: </h1>
+	<h2> ${id} </h2>
+	<h1> Category: </h1>
+	<h2> ${category} </h2>
+	</form>
+</body>	  
+	 
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="windows-1251">
+  <title>Get the ticket</title>
+	<style>
+   body {
+    background: #71BFB9 url(fon.png) no-repeat;
+	    }
+   header {
+      height: 130px; 
+	  width: 100%;
+	  background :#71b395 url(3.png) no-repeat;
+	  position: relative;
+      z-index: 50;
+      box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.5);
+	    }
+   a.button {
+		  display: inline-block;
+          color: #cbfbf3;
+		  text-decoration: none;
+		  text-align: center; 
+		  padding: 20px 30px;
+		  outline: none;
+		  border-width: 2px 0;
+		  border-style: solid none;
+		  border-color: #117060 ;
+		  border-radius: 6px;
+		  background: #078872;
+		  transition: 0.2s;
+		  width:200px;
+		  font-size:120%; 
+          font-weight:bold;
+		  min-height: 50px;
+		  display: flex;
+          align-items: center;
+          justify-content: center;
+ 			} 
+   
+      a.button1 {
+		  display: inline-block;
+		  color: #defbda;
+		  text-decoration: none;
+		  text-align:center;
+		  padding: .5em 2em;
+		  outline: none;
+		  border-width: 2px 0;
+		  border-style: solid none;
+		  border-color: #7cae89 ;
+		  border-radius: 4px;
+		  background: #84d299;
+		  transition: 0.2s;
+		  width:100px;
+		  height:80px
+		 font:168px; 
+         font-weight: bold;
+		 font-size:110%
+	          } 
+	  a.button3 {
+		  display: inline-block;
+		  color: #defbda;
+		  text-decoration: none;
+		  text-align:center;
+		  padding: .1em 2em;
+		  outline: none;
+		  border-width: 2px 0;
+		  border-style: solid none;
+		  border-color: #7cae89 ;
+		  border-radius: 4px;
+		  background: #84d299;
+		  transition: 0.2s;
+		  width:75px;
+	      font:50px; 
+          		 } 
+	p.contact {
+		margin: 5px;
+	           }
+	
+   </style>
+</head>
+ <body>
+	<header>
+	    <img img="3.png">
+	   <div align="right" valign="top">
+		<p class="contact">Call us: </br>
+		    +7 (xxx) xxx xxx-xx-xx <p> 
+		<a href="signin" class="button3">Service entrance</a>
+	   </div>
+	 </header>
+		<div align="center">
+	 <h2> Welcome! </h2>
+	 <p> Choose the service you are interested in. </p>
+		</div>	 
+		<form>
+<!-- Таблица для кнопок -->
+<!-- обычная кнопка (button)
+ кнопка для подтверждения и отправки данных формы на сервер (submit) ??? --> 
+	<table cellspacing="30" align="center">
+  <tr>
+		<td> <a href="ticketInfo?category=001" class="button"> Deposits and other accounts </a> </td>
+		<td> <a href="ticketInfo?category=001" class="button"> Credits</a> </td>
+		<td> <a href="ticketInfo?category=001" class="button"> Payment cards </a> </td>
+  </tr>
+  <tr>
+		<td> <a href="ticketInfo?category=002" class="button"> Currency exchange operations </a> </td>
+		<td> <a href="ticketInfo?category=002" class="button"> Payments </a> </td>
+		<td> <a href="ticketInfo?category=002" class="button"> Money transfers </a> </td>
+  </tr>
+	</table>
+	<!-- нижний ряд; должен быть с другим стилем--> 
+	<table cellspacing='25' align="center">
+		<td><a href="ticketInfo?category=003" class="button1"> Securities </a></td>
+		<td><a href="ticketInfo?category=003" class="button1"> Other operations </a></td>
+		<td><a href="ticketInfo?category=003" class="button1"> Program Persona </a></td>
+	</table>
+		</form>
+	 
+ </body>
+</html>

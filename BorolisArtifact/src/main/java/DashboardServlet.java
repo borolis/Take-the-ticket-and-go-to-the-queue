@@ -23,6 +23,12 @@ public class DashboardServlet extends HttpServlet {
         if (authentificate(session_id)) {
 
             Worker currentWorker = accountService.myDB.getWorker(accountService.myDB.makeSQLqueryGetWorkerByLogin(accountService.myDB.getAccBySession(session_id).getLogin()));
+
+            Integer cuttentQueueSize = queueList.getQueueByCategory(currentWorker.getWorkersCategory()).size();
+
+            Double currentWorkerLoadD = (cuttentQueueSize * 1.0) / (queueList.queueMaxSize * 1.0) * 100;
+            Integer currentWorkerLoad = currentWorkerLoadD.intValue();
+            currentWorker.setWorkersLoad(currentWorkerLoad.toString());
             response.getWriter().println(pageGenerator.getDashboardPage(currentWorker));
 
         } else {

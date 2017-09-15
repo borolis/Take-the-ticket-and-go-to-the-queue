@@ -2,6 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ListOfQueue {
+    Integer queueMaxSize = 30;
     LinkedList<LinkedQueue<ClientQueue>> queueList;
 
     public ListOfQueue() {
